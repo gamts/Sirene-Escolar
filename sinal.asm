@@ -1,18 +1,18 @@
 ;*****************************************************************************
 ;* NAME:             sinal.asm
 ;*-----------------------------------------------------------------------------
-;* AUTOR:            GESIEL ANT‘NIO MARTIS
- ;* ESPECIALIZA«√O:   T…CNICO EM ELETR‘NICA - (PELA SATC)        
+;* AUTOR:            GESIEL ANT√îNIO MARTIS
+;* ESPECIALIZA√á√ÉO:   T√âCNICO EM ELETR√îNICA       
 ;* DATA:             05/05/2003
 ;*-----------------------------------------------------------------------------
-;* ANOTA«’ES:      SISTEMA AUTOM¡TICO DE TOQUE DO SINAL ESCOLAR
-;*                   - DOA«√O DE GESIEL ANT‘NIO MARTINS PARA A ESCOLA B¡SICA 
+;* ANOTA√á√ïES:      SISTEMA AUTOM√ÅTICO DE TOQUE DO SINAL ESCOLAR
+;*                   - DOA√á√ÉO DE GESIEL ANT√îNIO MARTINS PARA A ESCOLA B√ÅSICA 
 ;*                   MUNICIPAL ABILIO CESAR BORGES
 ;******************************************************************************
 
-;******* DeclaraÁ„o de equ's ***************
+;******* Declara√ß√£o de equ's ***************
 
-	Hora1     equ 30h;07:40(inicio hor·rio matutino)
+	Hora1     equ 30h;07:40(inicio hor√°rio matutino)
 	Min1      equ 31h
 	Hora2     equ 32h;08:25
 	Min2      equ 33h
@@ -26,9 +26,9 @@
 	Min6      equ 3Bh
 	Hora7     equ 3Ch;11:40
 	Min7      equ 3Dh
-	Hora8     equ 3Eh;00:00(via programaÁ„o)
+	Hora8     equ 3Eh;00:00(via programa√ß√£o)
 	Min8      equ 3Fh
-	Hora9     equ 40h;13:00(inicio hor·rio vespertino)
+	Hora9     equ 40h;13:00(inicio hor√°rio vespertino)
 	Min9      equ 41h
 	Hora10    equ 42h;13:45 
 	Min10     equ 43h
@@ -42,9 +42,9 @@
 	Min14     equ 4Bh
 	Hora15    equ 4Ch;17:00
 	Min15     equ 4Dh
-	Hora16    equ 4Eh;00:00(via programaÁ„o) 
+	Hora16    equ 4Eh;00:00(via programa√ß√£o) 
 	Min16     equ 4Fh
-	Hora17    equ 50h;19:00(inicio hor·rio noturno)
+	Hora17    equ 50h;19:00(inicio hor√°rio noturno)
 	Min17     equ 51h
 	Hora18    equ 52h;19:40 
 	Min18     equ 53h 
@@ -58,10 +58,10 @@
 	Min22     equ 5Bh
 	Hora23    equ 5Ch;22:30 
 	Min23     equ 5Dh
-	Hora24    equ 5Eh;00:00(via programaÁ„o)  
+	Hora24    equ 5Eh;00:00(via programa√ß√£o)  
 	Min24     equ 5Fh
      	;registradores
-	HrSeg1      equ 60h ;Programando o Horario nos dias da semana, escolhe qual ser· usado entre v·rios
+	HrSeg1      equ 60h ;Programando o Horario nos dias da semana, escolhe qual ser√° usado entre v√°rios
 	HrSeg2      equ 61h
 	HrSeg3      equ 62h
 	HrTer1      equ 63h
@@ -82,30 +82,30 @@
 	HoraAtual   equ r3
 	DiaAtual    equ r4
 	ParametroAtual equ r5	;indica o Parametro Atual
-	ValorLR     equ r6	;indica qual display est· piscando
-	;           equ r1 est· sendo usado no toca sirene
-	HoraAtualizada equ 6fh	;valor da Hora modificada na programaÁ„o
-	MinAtualizado  equ 70h 	;valor do Minuto modificado na programaÁ„o
-	g71	       equ 71h  ;est· sendo usado no toca sirene
-	g72	       equ 72h  ;est· sendo usado 
-	g73	       equ 73h  ;est· sendo usado incrementa e p00
-	g74	       equ 74h  ;est· sendo usado perde tempo
-	g75	       equ 75h  ;est· sendo usado perde tempo
-	g76	       equ 76h  ;est· sendo usado tocasirene0000000
-	g77	       equ 77h  ;est· sendo usado 
-	g78	       equ 78h  ;est· sendo usado {apÛs 15 min zera o parametro 18}
-;******* DeclaraÁ„o de bit's **********************************************************
+	ValorLR     equ r6	;indica qual display est√° piscando
+	;           equ r1 est√° sendo usado no toca sirene
+	HoraAtualizada equ 6fh	;valor da Hora modificada na programa√ß√£o
+	MinAtualizado  equ 70h 	;valor do Minuto modificado na programa√ß√£o
+	g71	       equ 71h  ;est√° sendo usado no toca sirene
+	g72	       equ 72h  ;est√° sendo usado 
+	g73	       equ 73h  ;est√° sendo usado incrementa e p00
+	g74	       equ 74h  ;est√° sendo usado perde tempo
+	g75	       equ 75h  ;est√° sendo usado perde tempo
+	g76	       equ 76h  ;est√° sendo usado tocasirene0000000
+	g77	       equ 77h  ;est√° sendo usado 
+	g78	       equ 78h  ;est√° sendo usado {ap√≥s 15 min zera o parametro 18}
+;******* Declara√ß√£o de bit's **********************************************************
 
-	BtProg   bit p1.4  ;Entra no modo de programaÁ„o e confirma as mudanÁas 
-        BtEsc    bit p1.3  ;sai do modo de programaÁ„o
+	BtProg   bit p1.4  ;Entra no modo de programa√ß√£o e confirma as mudan√ßas 
+        BtEsc    bit p1.3  ;sai do modo de programa√ß√£o
 	BtUp     bit p1.0  ;incrementa
 	BtDown   bit p1.1  ;decrementa
 	BtLR     bit p1.2  ;(Botao para selecionar a hora ou o minuto)
 	LedNor   bit p3.4  ;Modo Normal fica ligado 	
-	LedProg  bit p3.3  ;Modo de programaÁ„o fica piscando 
-	LedHab   bit p3.2  ;Indica se est·na hora de bater o sinal
-	Bip      bit p3.0  ;gera som quando um bot„o È clicado 
-	sirene   bit p3.1  ;Liga relÈ 
+	LedProg  bit p3.3  ;Modo de programa√ß√£o fica piscando 
+	LedHab   bit p3.2  ;Indica se est√°na hora de bater o sinal
+	Bip      bit p3.0  ;gera som quando um bot√£o √© clicado 
+	sirene   bit p3.1  ;Liga rel√© 
 	LedSeg   bit p3.5  ;(pisca conforme os segundos)
 	HabLt1   bit p2.0  ;(Habilita Latch 1)
 	HabLt2   bit p2.1  ;(Habilita Latch 2)
@@ -113,35 +113,35 @@
 	HabD2    bit p2.2  ;(Habilita display 2)
 	HabD3    bit p2.5  ;(Habilita display 3)
 	HabD4    bit p2.4  ;(Habilita display 4)
-	BitHab	 bit 00h   ;bit de proteÁ„o
+	BitHab	 bit 00h   ;bit de prote√ß√£o
 	SirHab	 bit 05h   ;habilita sirene
 	AtuaDis  bit 01h   ;Atualiza a cada minuto(atualiza em zero)
-	flag1	 bit 02h   ;est· sendo usado 
-	flag2	 bit 03h   ;est· sendo usado 
+	flag1	 bit 02h   ;est√° sendo usado 
+	flag2	 bit 03h   ;est√° sendo usado 
 ;******* Inicio do programa **************************************************************
 	ORG 00h
 	LJMP Iniciando
-	;ORG 0003h ;EndereÁo da interrupÁ„o /INT0
+	;ORG 0003h ;Endere√ßo da interrup√ß√£o /INT0
 	;nop
 	;reti
-	ORG 000Bh ;EndereÁo da interrupÁ„o Timer_0
+	ORG 000Bh ;Endere√ßo da interrup√ß√£o Timer_0
 	clr tr0
 	mov th0,#high(65535-49991)
 	mov tl0,#low(65535-49991)
 	nop
 	setb tr0
 	ljmp Tempo
-	;ORG 0013h ;EndereÁo da interrupÁ„o /INT1
+	;ORG 0013h ;Endere√ßo da interrup√ß√£o /INT1
 	;reti
-	;ORG 001Bh ;EndereÁo da interrupÁ„o Timer_1
+	;ORG 001Bh ;Endere√ßo da interrup√ß√£o Timer_1
 	;reti
-	;ORG 0023h ;EndereÁo da interrupÁ„o SERIAL
+	;ORG 0023h ;Endere√ßo da interrup√ß√£o SERIAL
 	;reti
 	ORG 30h
 Iniciando:
 	mov p3,#00h
-	mov tmod,#00000001b 	;configuraÁ„o do TIMER_1 e TIMER_0 --> | GATE | C/T | M1 | M0 |
-	mov ie,#10000010b 	;Abilita interrupÁ„o do TIMER_0
+	mov tmod,#00000001b 	;configura√ß√£o do TIMER_1 e TIMER_0 --> | GATE | C/T | M1 | M0 |
+	mov ie,#10000010b 	;Abilita interrup√ß√£o do TIMER_0
 	mov HoraAtual,#00d	;zera a hora atual
 	mov MinAtual,#00d	;zera o minuto atual
 	mov SegAtual,#00d	;zera o segundo atual
@@ -152,11 +152,11 @@ Iniciando:
 	mov tl0,#low(65535-49997)	;automaticamente
 	setb tr0			;liga TIMER_0
 	setb LedNor 		;seta led que indica modo normal			
-	clr LedProg 		;apaga led que indica modo de programaÁ„o
+	clr LedProg 		;apaga led que indica modo de programa√ß√£o
 	lcall TurnoAtual	;carrega os turnos
 	lcall MudaHorario
-	mov valorlr,#00d	;comeÁa desabilitado {sequencia que faz fiscar os displays}
-	setb BitHab		;a proteÁ„o comeÁa habilitada
+	mov valorlr,#00d	;come√ßa desabilitado {sequencia que faz fiscar os displays}
+	setb BitHab		;a prote√ß√£o come√ßa habilitada
 	setb SirHab		;Habilita sirene
 	mov 76h,#00d
 	clr flag2
@@ -164,26 +164,26 @@ Iniciando:
 INICIO:	mov MinAtualizado,MinAtual
 	Mov HoraAtualizada,HoraAtual
 	lcall AtualizaDisplay
-;****************** Clicando no bot„o prog ***********************************************
-	jb   BtProg,inicio  	;if bot„o prog n„o for pressionado pula para inicio
+;****************** Clicando no bot√£o prog ***********************************************
+	jb   BtProg,inicio  	;if bot√£o prog n√£o for pressionado pula para inicio
 	mov  b,#03h		;faz esperar 3 segundos 
-	mov  a,segAtual		;com o bot„o (BtProg) ligado para 
-	add  a,b		;entrar no modo de programaÁ„o
+	mov  a,segAtual		;com o bot√£o (BtProg) ligado para 
+	add  a,b		;entrar no modo de programa√ß√£o
 	mov  b,a
 J1:	mov  a,b
-	subb a,segAtual		;usado em funÁ„o da proxima instruÁ„o
-	cjne a,#0h,J2		;compara se j· passou os 3s / se nao for igual a 3s ele pula para J2
-	jnb  BtProg,$ 		;espera que o bot„o seja solto
+	subb a,segAtual		;usado em fun√ß√£o da proxima instru√ß√£o
+	cjne a,#0h,J2		;compara se j√° passou os 3s / se nao for igual a 3s ele pula para J2
+	jnb  BtProg,$ 		;espera que o bot√£o seja solto
 	lcall perdetempo
 	acall modoprog
 J2:	jnb  BtProg,J1		;se esta pressionando pula para J1
-	jb   BtProg,inicio	;volta para inicio se o bot„o for solto antes de 3s
-;********** Modo de programaÁ„o ********************************************************************
+	jb   BtProg,inicio	;volta para inicio se o bot√£o for solto antes de 3s
+;********** Modo de programa√ß√£o ********************************************************************
 ModoProg:
-	mov  ParametroAtual,#00h ;comeÁa no parametro 00h (HoraAtual)
+	mov  ParametroAtual,#00h ;come√ßa no parametro 00h (HoraAtual)
 	lcall mostraparametro
-	clr LedNor		;apaga led que indica posiÁ„o normal
-	setb ledseg		;apaga ledseg (lÛgica inversa)
+	clr LedNor		;apaga led que indica posi√ß√£o normal
+	setb ledseg		;apaga ledseg (l√≥gica inversa)
 	setb ledprog
 ;{-------entra no parametro escolhido----------------------}
 J42:	jb BtProg,J3	;entra no parametro escolhido
@@ -230,7 +230,7 @@ J12:	jb BtDown,J15	;decrementa valor do display selecionado
 J14:	dec horaatualizada 
 	lcall mostraDados
 	;-----------------------
-J15:	jb BtEsc,J9	;sai do modo de programaÁıa
+J15:	jb BtEsc,J9	;sai do modo de programa√ß√µa
 	jnb BtEsc,$
 	lcall perdetempo
 	lcall MostraParametro
@@ -250,7 +250,7 @@ J4:	jb BtDown,J5
 	mov parametroatual,#19d
 J6:	dec parametroatual	
 	lcall mostraparametro
-;{------sai do modo de programaÁ„o--------------------------}
+;{------sai do modo de programa√ß√£o--------------------------}
 J5:	jb BtEsc,J16
 	setb LedNor 		;indica modo normal			
 	clr LedProg 
@@ -287,15 +287,15 @@ MostraParametro:
 	ret
 ;*********** Mostra Hora no Display *******************************************************
 ;{subrotina}
-AtualizaDisplay: ;mostra hora se o usuario nao estiver na programaÁao
-	mov p2,#00111100b  ;os latch's n„o aceitam dados do uC e os decodificadores recebem os dados atuais dos latch's
+AtualizaDisplay: ;mostra hora se o usuario nao estiver na programa√ßao
+	mov p2,#00111100b  ;os latch's n√£o aceitam dados do uC e os decodificadores recebem os dados atuais dos latch's
 	mov a,HoraAtualizada    	;algoritimo para mostrar a hora no display 3 e 4
 	mov b,#10d		;
 	div ab			;
 	swap a			;
 	orl a,b			;
 	mov p0,a		;
-	setb p2.1	;essas duas instruÁıes geram um pulso no p2.1 para 
+	setb p2.1	;essas duas instru√ß√µes geram um pulso no p2.1 para 
 	clr  p2.1	;que o latch receba a hora no display
 	mov a,MinAtualizado 		;mostra o Minuto no display 1 e 2
 	mov b,#10d
@@ -307,7 +307,7 @@ AtualizaDisplay: ;mostra hora se o usuario nao estiver na programaÁao
 	clr  p2.0
 	ret
 ;************************************************************************************************
-;{subrotina} Mostra os dados dos parametros 01 ‡ 15 nos dois primeiros display's
+;{subrotina} Mostra os dados dos parametros 01 √† 15 nos dois primeiros display's
 MostraDados:
 	mov p2,#00001100b	
 	mov a,HoraAtualizada ;mostra a hora no display 3 e 4
@@ -342,9 +342,9 @@ P00:	mov valorlr,#01d		;permite que o primeiro display fique piscando
 	mov HoraAtualizada,HoraAtual	;mov a HoraAtual para HoraAtualizada
 	mov MinAtualizado,MinAtual	;mov o MinAtual para MinAtualizado
 	lcall AtualizaDisplay		;coloca a hora no display
-	clr ledseg			;faz o led que indica os segundos ficar ligado (lÛgica inversa)
+	clr ledseg			;faz o led que indica os segundos ficar ligado (l√≥gica inversa)
 ;{----------------------------------------------------------}
-J29:	jb BtProg,J22	;confirma as mudanÁas de parametro da hora
+J29:	jb BtProg,J22	;confirma as mudan√ßas de parametro da hora
 	jnb BtProg,$
 	lcall perdetempo
 	jb bithab,J100
@@ -355,7 +355,7 @@ J29:	jb BtProg,J22	;confirma as mudanÁas de parametro da hora
 J100:	ljmp J30
 ;{----------------------------------------------------------}	
 J22:	jb BtUp,J23	;incrementa valor do display  selecionado
-	jnb BtUp,$	;espera tirar o dedo do bot„o
+	jnb BtUp,$	;espera tirar o dedo do bot√£o
 	lcall perdetempo
 ;-----------algoritimo para incrementar o digito do display 01---------------------
 	cjne valorlr,#01d,J31 
@@ -387,7 +387,7 @@ J33:	cjne valorlr,#03d,J35
 	mov b,#10d
 	div ab
 	mov 73h,a
-	cjne a,#02d,J36		;compara se s„o mais que 20 horas 
+	cjne a,#02d,J36		;compara se s√£o mais que 20 horas 
 	mov a,b			;caso seja verdadeiro 
 	inc a
 	cjne a,#04d,J37		;o digito pode ter somente os seguintes valores {0,1,2,3,4=0}
@@ -408,7 +408,7 @@ J35:	cjne valorlr,#04d,J24
 	inc a
 	cjne a,#03d,J38
 	mov a,#00d	
-J38:	cjne a,#02d,J39 ; algoritimo: faz com que a hora n„o seja maior que 24h
+J38:	cjne a,#02d,J39 ; algoritimo: faz com que a hora n√£o seja maior que 24h
 	mov 73h,a
 	mov a,b
 	mov b,#04d
@@ -456,7 +456,7 @@ J48:	cjne valorlr,#03d,J50
 	mov b,#10d
 	div ab
 	mov 73h,a		;armazena o dado em um flag
-	cjne a,#02d,J51		;compara se s„o mais que 20 horas 
+	cjne a,#02d,J51		;compara se s√£o mais que 20 horas 
 	mov a,b		
 	cjne a,#00d,J51		;se decrementar o zero, ele passa para 3
 	mov b,#04d
@@ -476,7 +476,7 @@ J50:	cjne valorlr,#04d,J26
 	mov a,#03d
 J52:	dec a
 	mov 73h,a
-	cjne a,#02d,J53		; algoritimo: faz com que a hora n„o seja maior que 24h
+	cjne a,#02d,J53		; algoritimo: faz com que a hora n√£o seja maior que 24h
 	mov a,b 
 	mov b,#04d
 J55:	cjne a,b,J54 
@@ -497,7 +497,7 @@ J26:	jb Btlr,J27	;rotaciona para direita
 	cjne valorlr,#05d,J27
 	mov valorlr,#01d
 ;{-----------------------------------------------------}
-J27:	jb BtEsc,J28	;sai do modo de programaÁıa
+J27:	jb BtEsc,J28	;sai do modo de programa√ß√µa
 	jnb BtEsc,$
 	lcall perdetempo
 J30:	mov valorlr,#00h
@@ -527,14 +527,14 @@ AtualizaMin:
 P16: ;{dia da semana}
 	mov horaatualizada,diaatual
 	lcall mostradados
-J93:	jb BtProg,J73	;confirma as mudanÁas de parametro da hora
+J93:	jb BtProg,J73	;confirma as mudan√ßas de parametro da hora
 	jnb BtProg,$
 	lcall perdetempo
 	jb bithab,J101
 	mov diaatual,horaatualizada
 J101:	ajmp J76
 J73:	jb BtUp,J74	;incrementa valor do display  selecionado
-	jnb BtUp,$	;espera tirar o dedo do bot„o
+	jnb BtUp,$	;espera tirar o dedo do bot√£o
 	lcall perdetempo
 	inc horaatualizada
 	mov a,horaatualizada
@@ -549,18 +549,18 @@ J74:	jb BtDown,J75	;decrementa valor do display selecionado
 	mov horaatualizada,#08d
 J85:	dec horaatualizada
 	lcall mostradados
-J75:	jb BtEsc,J93	;sai do modo de programaÁıa
+J75:	jb BtEsc,J93	;sai do modo de programa√ß√µa
 	jnb BtEsc,$
 	lcall perdetempo
 J76:	lcall mostraparametro
 	ret
 ;**********************************************************************************************
-P17: ;{Bit de programaÁ„o}
+P17: ;{Bit de programa√ß√£o}
 	mov horaatualizada,#01d
 	jb bithab,J88
 	mov horaatualizada,#00d
 J88:	lcall mostradados
-J92:	jb BtProg,J77	;confirma as mudanÁas de parametro da hora
+J92:	jb BtProg,J77	;confirma as mudan√ßas de parametro da hora
 	jnb BtProg,$
 	lcall perdetempo
 	setb BitHab
@@ -570,7 +570,7 @@ J92:	jb BtProg,J77	;confirma as mudanÁas de parametro da hora
 	mov 78h,#15d
 J91:	ajmp J80
 J77:	jb BtUp,J78	;incrementa valor do display  selecionado
-	jnb BtUp,$	;espera tirar o dedo do bot„o
+	jnb BtUp,$	;espera tirar o dedo do bot√£o
 	lcall perdetempo
 	inc horaatualizada
 	mov a,horaatualizada
@@ -585,7 +585,7 @@ J78:	jb BtDown,J79	;decrementa valor do display selecionado
 	mov horaatualizada,#02d
 J90:	dec horaatualizada
 	lcall mostradados
-J79:	jb BtEsc,J92	;sai do modo de programaÁıa
+J79:	jb BtEsc,J92	;sai do modo de programa√ß√µa
 	jnb BtEsc,$
 	lcall perdetempo
 J80:	lcall mostraparametro
@@ -596,7 +596,7 @@ P18: ;{Habilita sirene}
 	jb sirhab,J95
 	mov horaatualizada,#00d
 J95:	lcall mostradados
-J94:	jb BtProg,J81	;confirma as mudanÁas de parametro da hora
+J94:	jb BtProg,J81	;confirma as mudan√ßas de parametro da hora
 	jnb BtProg,$
 	lcall perdetempo
 	jb bithab,J96
@@ -606,7 +606,7 @@ J94:	jb BtProg,J81	;confirma as mudanÁas de parametro da hora
 	clr Sirhab
 J96:	ajmp J84
 J81:	jb BtUp,J82	;incrementa valor do display  selecionado
-	jnb BtUp,$	;espera tirar o dedo do bot„o
+	jnb BtUp,$	;espera tirar o dedo do bot√£o
 	lcall perdetempo
 	inc horaatualizada
 	mov a,horaatualizada
@@ -621,97 +621,97 @@ J82:	jb BtDown,J83	;decrementa valor do display selecionado
 	mov horaatualizada,#02d
 J98:	dec horaatualizada
 	lcall mostradados
-J83:	jb BtEsc,J94	;sai do modo de programaÁıa
+J83:	jb BtEsc,J94	;sai do modo de programa√ß√µa
 	jnb BtEsc,$
 	lcall perdetempo
 J84:	lcall mostraparametro
 	ret
 ;**********************************************************************************************
 MudaHorario:
-	cjne DiaAtual,#02d,J113		;compara se È segunda
+	cjne DiaAtual,#02d,J113		;compara se √© segunda
 	mov a,HrSeg1
-	cjne a,#01d,J114		;compara se foi escolhido o hor·rio 1 do periodo matutino
+	cjne a,#01d,J114		;compara se foi escolhido o hor√°rio 1 do periodo matutino
 	lcall matutino1
-J114:	cjne a,#02d,J115		;compara se foi escolhido o hor·rio 2 do periodo matutino
+J114:	cjne a,#02d,J115		;compara se foi escolhido o hor√°rio 2 do periodo matutino
 	lcall matutino2
 J115:	mov a,HrSeg2
-	cjne a,#01d,J116		;compara se foi escolhido o hor·rio 1 do periodo vespertino
+	cjne a,#01d,J116		;compara se foi escolhido o hor√°rio 1 do periodo vespertino
 	lcall vespertino1
-J116:	cjne a,#02d,J117		;compara se foi escolhido o hor·rio 2 do periodo vespertino
+J116:	cjne a,#02d,J117		;compara se foi escolhido o hor√°rio 2 do periodo vespertino
 	lcall vespertino2
 J117:	mov a,HrSeg3
-	cjne a,#01d,J118		;compara se foi escolhido o hor·rio 1 do periodo noturno
+	cjne a,#01d,J118		;compara se foi escolhido o hor√°rio 1 do periodo noturno
 	lcall noturno1
-J118:	cjne a,#02d,J113		;compara se foi escolhido o hor·rio 2 do periodo noturno
+J118:	cjne a,#02d,J113		;compara se foi escolhido o hor√°rio 2 do periodo noturno
 	lcall noturno1
-J113:	cjne DiaAtual,#03d,J119		;compara se È terÁa
+J113:	cjne DiaAtual,#03d,J119		;compara se √© ter√ßa
 	mov a,HrTer1
-	cjne a,#01d,J120		;compara se foi escolhido o hor·rio 1 do periodo matutino
+	cjne a,#01d,J120		;compara se foi escolhido o hor√°rio 1 do periodo matutino
 	lcall matutino1
-J120:	cjne a,#02d,J121		;compara se foi escolhido o hor·rio 2 do periodo matutino
+J120:	cjne a,#02d,J121		;compara se foi escolhido o hor√°rio 2 do periodo matutino
 	lcall matutino2
 J121:	mov a,HrTer2
-	cjne a,#01d,J122		;compara se foi escolhido o hor·rio 1 do periodo vespertino
+	cjne a,#01d,J122		;compara se foi escolhido o hor√°rio 1 do periodo vespertino
 	lcall vespertino1
-J122:	cjne a,#02d,J123		;compara se foi escolhido o hor·rio 2 do periodo vespertino
+J122:	cjne a,#02d,J123		;compara se foi escolhido o hor√°rio 2 do periodo vespertino
 	lcall vespertino2
 J123:	mov a,HrTer3
-	cjne a,#01d,J124		;compara se foi escolhido o hor·rio 1 do periodo noturno
+	cjne a,#01d,J124		;compara se foi escolhido o hor√°rio 1 do periodo noturno
 	lcall noturno1
-J124:	cjne a,#02d,J119		;compara se foi escolhido o hor·rio 2 do periodo noturno
+J124:	cjne a,#02d,J119		;compara se foi escolhido o hor√°rio 2 do periodo noturno
 	lcall noturno1
-J119:	cjne DiaAtual,#04d,J125		;compara se È quarta
+J119:	cjne DiaAtual,#04d,J125		;compara se √© quarta
 	mov a,HrQua1
-	cjne a,#01d,J126		;compara se foi escolhido o hor·rio 1 do periodo matutino
+	cjne a,#01d,J126		;compara se foi escolhido o hor√°rio 1 do periodo matutino
 	lcall matutino1
-J126:	cjne a,#02d,J127		;compara se foi escolhido o hor·rio 2 do periodo matutino
+J126:	cjne a,#02d,J127		;compara se foi escolhido o hor√°rio 2 do periodo matutino
 	lcall matutino2
 J127:	mov a,HrQua2
-	cjne a,#01d,J128		;compara se foi escolhido o hor·rio 1 do periodo vespertino
+	cjne a,#01d,J128		;compara se foi escolhido o hor√°rio 1 do periodo vespertino
 	lcall vespertino1
-J128:	cjne a,#02d,J129		;compara se foi escolhido o hor·rio 2 do periodo vespertino
+J128:	cjne a,#02d,J129		;compara se foi escolhido o hor√°rio 2 do periodo vespertino
 	lcall vespertino2
 J129:	mov a,HrQua3
-	cjne a,#01d,J130		;compara se foi escolhido o hor·rio 1 do periodo noturno
+	cjne a,#01d,J130		;compara se foi escolhido o hor√°rio 1 do periodo noturno
 	lcall noturno1
-J130:	cjne a,#02d,J125		;compara se foi escolhido o hor·rio 2 do periodo noturno
+J130:	cjne a,#02d,J125		;compara se foi escolhido o hor√°rio 2 do periodo noturno
 	lcall noturno1
-J125:	cjne DiaAtual,#05d,J131		;compara se È quinta
+J125:	cjne DiaAtual,#05d,J131		;compara se √© quinta
 	mov a,HrQui1
-	cjne a,#01d,J132		;compara se foi escolhido o hor·rio 1 do periodo matutino
+	cjne a,#01d,J132		;compara se foi escolhido o hor√°rio 1 do periodo matutino
 	lcall matutino1
-J132:	cjne a,#02d,J133		;compara se foi escolhido o hor·rio 2 do periodo matutino
+J132:	cjne a,#02d,J133		;compara se foi escolhido o hor√°rio 2 do periodo matutino
 	lcall matutino2
 J133:	mov a,HrQui2
-	cjne a,#01d,J134		;compara se foi escolhido o hor·rio 1 do periodo vespertino
+	cjne a,#01d,J134		;compara se foi escolhido o hor√°rio 1 do periodo vespertino
 	lcall vespertino1
-J134:	cjne a,#02d,J135		;compara se foi escolhido o hor·rio 2 do periodo vespertino
+J134:	cjne a,#02d,J135		;compara se foi escolhido o hor√°rio 2 do periodo vespertino
 	lcall vespertino2
 J135:	mov a,HrQui3
-	cjne a,#01d,J136		;compara se foi escolhido o hor·rio 1 do periodo noturno
+	cjne a,#01d,J136		;compara se foi escolhido o hor√°rio 1 do periodo noturno
 	lcall noturno1
-J136:	cjne a,#02d,J131		;compara se foi escolhido o hor·rio 2 do periodo noturno
+J136:	cjne a,#02d,J131		;compara se foi escolhido o hor√°rio 2 do periodo noturno
 	lcall noturno1
-J131:	cjne DiaAtual,#06d,J137		;compara se È sexta
+J131:	cjne DiaAtual,#06d,J137		;compara se √© sexta
 	mov a,HrSex1
-	cjne a,#01d,J138		;compara se foi escolhido o hor·rio 1 do periodo matutino
+	cjne a,#01d,J138		;compara se foi escolhido o hor√°rio 1 do periodo matutino
 	lcall matutino1
-J138:	cjne a,#02d,J139		;compara se foi escolhido o hor·rio 1 do periodo matutino
+J138:	cjne a,#02d,J139		;compara se foi escolhido o hor√°rio 1 do periodo matutino
 	lcall matutino2	
 J139:	mov a,HrSex2
-	cjne a,#01d,J140		;compara se foi escolhido o hor·rio 1 do periodo vespertino
+	cjne a,#01d,J140		;compara se foi escolhido o hor√°rio 1 do periodo vespertino
 	lcall vespertino1
-J140:	cjne a,#02d,J141		;compara se foi escolhido o hor·rio 2 do periodo vespertino
+J140:	cjne a,#02d,J141		;compara se foi escolhido o hor√°rio 2 do periodo vespertino
 	lcall vespertino2
 J141:	mov a,HrSex3
-	cjne a,#01d,J142		;compara se foi escolhido o hor·rio 1 do periodo noturno
+	cjne a,#01d,J142		;compara se foi escolhido o hor√°rio 1 do periodo noturno
 	lcall noturno1
-J142:	cjne a,#02d,J137		;compara se foi escolhido o hor·rio 2 do periodo noturno
+J142:	cjne a,#02d,J137		;compara se foi escolhido o hor√°rio 2 do periodo noturno
 	lcall noturno1
 J137:	ret
-;*********** Chamada da interrupÁ„o do TIMER_0 *************************************************	
+;*********** Chamada da interrup√ß√£o do TIMER_0 *************************************************	
 TEMPO:	dec r0
-	cjne r0,#00h,pulo1 	;compara se SegAtual n„o for zero 	orl c,	orl c,p1.2p1.2
+	cjne r0,#00h,pulo1 	;compara se SegAtual n√£o for zero 	orl c,	orl c,p1.2p1.2
 	mov r0,#20d  	  ;carrega r0 com 20, pois ele conta 20 vezes 50000 us (microsegundos) para dar 1segundo
 	inc SegAtual
 	jnb flag2,pulo1
@@ -747,54 +747,54 @@ pulo24:	pop acc
 pulo1:	cjne r0,#20d,pulo2 	;compara para fazer o led do display 3 ligar por 0.5s 
 	jnb lednor,pulo18	;ledseg somente pisca se estiverem modo normal
 	clr ledseg
-pulo18:	cjne valorlr,#01d,pulo12	;compara se esta no modo de programaÁ„o para piscar o display1
+pulo18:	cjne valorlr,#01d,pulo12	;compara se esta no modo de programa√ß√£o para piscar o display1
 	cpl habd1
-	setb habd2		;faz com que os outros display's n„o apaguem
+	setb habd2		;faz com que os outros display's n√£o apaguem
 	setb habd3
 	setb habd4
-pulo12:	cjne valorlr,#02d,pulo13	;compara se esta no modo de programaÁ„o para piscar o display2
+pulo12:	cjne valorlr,#02d,pulo13	;compara se esta no modo de programa√ß√£o para piscar o display2
 	cpl habd2
-	setb habd1		;faz com que os outros display's n„o apaguem
+	setb habd1		;faz com que os outros display's n√£o apaguem
 	setb habd3
 	setb habd4
-pulo13:	cjne valorlr,#03d,pulo14	;compara se esta no modo de programaÁ„o para piscar o display3
+pulo13:	cjne valorlr,#03d,pulo14	;compara se esta no modo de programa√ß√£o para piscar o display3
 	cpl habd3
-	setb habd1		;faz com que os outros display's n„o apaguem
+	setb habd1		;faz com que os outros display's n√£o apaguem
 	setb habd2
 	setb habd4
-pulo14: cjne valorlr,#04d,pulo2	;compara se esta no modo de programaÁ„o para piscar o display4
+pulo14: cjne valorlr,#04d,pulo2	;compara se esta no modo de programa√ß√£o para piscar o display4
 	cpl habd4
-	setb habd1		;faz com que os outros display's n„o apaguem
+	setb habd1		;faz com que os outros display's n√£o apaguem
 	setb habd2
 	setb habd3
 pulo2:	cjne r0,#10d,pulo3 	;compara para fazer o led do display 3 desligar por 0.5s 
 	jnb lednor,pulo19	;ledseg somente pisca se estiverem modo normal 
-	setb ledseg         	;(ledseg)-> para dar a ilus„o da comtagem dos segundos
-pulo19:	cjne valorlr,#01d,pulo15	;compara se esta no modo de programaÁ„o para piscar o display1
+	setb ledseg         	;(ledseg)-> para dar a ilus√£o da comtagem dos segundos
+pulo19:	cjne valorlr,#01d,pulo15	;compara se esta no modo de programa√ß√£o para piscar o display1
 	cpl habd1
-	setb habd2		;faz com que os outros display's n„o apaguem
+	setb habd2		;faz com que os outros display's n√£o apaguem
 	setb habd3
 	setb habd4
-pulo15:	cjne valorlr,#02d,pulo16	;compara se esta no modo de programaÁ„o para piscar o display2
+pulo15:	cjne valorlr,#02d,pulo16	;compara se esta no modo de programa√ß√£o para piscar o display2
 	cpl habd2
-	setb habd1		;faz com que os outros display's n„o apaguem
+	setb habd1		;faz com que os outros display's n√£o apaguem
 	setb habd3
 	setb habd4
-pulo16:	cjne valorlr,#03d,pulo17	;compara se esta no modo de programaÁ„o para piscar o display3
+pulo16:	cjne valorlr,#03d,pulo17	;compara se esta no modo de programa√ß√£o para piscar o display3
 	cpl habd3
-	setb habd1		;faz com que os outros display's n„o apaguem
+	setb habd1		;faz com que os outros display's n√£o apaguem
 	setb habd2
 	setb habd4
-pulo17: cjne valorlr,#04d,pulo3	;compara se esta no modo de programaÁ„o para piscar o display4
+pulo17: cjne valorlr,#04d,pulo3	;compara se esta no modo de programa√ß√£o para piscar o display4
 	cpl habd4
-	setb habd1		;faz com que os outros display's n„o apaguem
+	setb habd1		;faz com que os outros display's n√£o apaguem
 	setb habd2
 	setb habd3
-pulo3:	jnb sirene,pulo20	  ;compara se a sirene est· ligada,	
+pulo3:	jnb sirene,pulo20	  ;compara se a sirene est√° ligada,	
 	cjne SegAtual,#6d,pulo20  ;e faz a sirene tocar por 5 segundos
 	clr sirene		  ;depois desliga a sirene
 	clr ledhab		  ;desliga led amarelo
-	mov 76h,#00h	;indica que o sinal j· bateu 
+	mov 76h,#00h	;indica que o sinal j√° bateu 
 pulo20:	cjne SegAtual,#60d,pulo5 	;Se der 60 segundos
 	mov SegAtual,#00h        	;zera Segundo Atual
 	inc MinAtual			;incrementa Minuto Atual
@@ -835,27 +835,27 @@ tocasirene:
 	mov a,diaatual	;mov para o acc o valor do dia atual
 	cjne a,#01d,J56	;compara se o dia for 01 (domingo)pula para J17
 	ajmp J17
-J56:	cjne a,#07d,J57	;compara se o dia for 07 (s·bado) pula para J17
+J56:	cjne a,#07d,J57	;compara se o dia for 07 (s√°bado) pula para J17
 	ajmp J17
 J57:	mov a,horaatual	;mov para o acc o valor da hora atual
 	cjne a,#00h,J43	;pula para J17 se for 00:xx Horas 
 	ajmp J17
 J43:	acall IndicaSirene
 	mov a,horaatual	;mov para o acc o valor da hora atual
-	mov r1,#30h	;r1 = 30h (de 30h a 5Eh s„o as posiÁıes de mem. que contÈm o valor das horas) 
+	mov r1,#30h	;r1 = 30h (de 30h a 5Eh s√£o as posi√ß√µes de mem. que cont√©m o valor das horas) 
 J19:	mov 71h,@r1	;mov para a pos. de mem. 71h o valor da pos. de mem. apontado por r1
-	cjne a,71h,J18	;comp. c a horaatual(acc) È igual a hora da pos. de mem. 30h que foi movida para 71h
+	cjne a,71h,J18	;comp. c a horaatual(acc) √© igual a hora da pos. de mem. 30h que foi movida para 71h
 	mov a,Minatual	;mov para o acc o valor do minuto atual
 	inc r1		;incrementa r1 para indicar a pos. do minuto
 	mov 71h,@r1	;mov para a pos. de mem. 71h o valor da pos. de mem. apontado por r1
-	cjne a,71h,J2_0	;comp. c o minatual(acc) È igual o min da pos. de mem. 30h que foi movida para 71h
-	jnb Sirhab,J20	;comp. se a sirene est· habilitada
+	cjne a,71h,J2_0	;comp. c o minatual(acc) √© igual o min da pos. de mem. 30h que foi movida para 71h
+	jnb Sirhab,J20	;comp. se a sirene est√° habilitada
 	setb sirene	;se a hora e o min forem verdadeiros a sirene e tocada
-	mov 76h,#00h	;indica que o sinal j· bateu 
+	mov 76h,#00h	;indica que o sinal j√° bateu 
 	clr flag2	; e desliga o ledhab
 	clr ledhab
 J20:	ajmp J17	;pula para J17 
-J18:	inc r1		;incrementa 2x r1 para indicar o valor da pos. de mem. que contÈm a hora
+J18:	inc r1		;incrementa 2x r1 para indicar o valor da pos. de mem. que cont√©m a hora
 	inc r1
 	cjne r1,#60h,J19 ;compara se passou todas as horas
 J17:	pop b
@@ -1013,10 +1013,10 @@ Noturno1:
 	mov Hora24,#00d     
 	mov Min24,#00d  
 	ret
-;*************** ProgramaÁ„o dos turnos ******************************************** 
+;*************** Programa√ß√£o dos turnos ******************************************** 
 TurnoAtual:
  	mov HrSeg1,#01d      	;equ 60h    Programando o Horario nos dias da semana, 
-	mov HrSeg2,#01d      	;equ 61h    escolhe qual ser· usado entre v·rios
+	mov HrSeg2,#01d      	;equ 61h    escolhe qual ser√° usado entre v√°rios
 	mov HrSeg3,#01d      	;equ 62h
 	mov HrTer1,#01d      	;equ 63h
 	mov HrTer2,#01d      	;equ 64h
